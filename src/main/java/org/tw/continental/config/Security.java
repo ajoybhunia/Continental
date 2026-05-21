@@ -19,6 +19,7 @@ public class Security {
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/users/register").permitAll()
+            .requestMatchers("/api/search/hotels").permitAll()
             .requestMatchers("/login").permitAll()
             .anyRequest().authenticated()
         ).formLogin(fl -> fl.loginProcessingUrl("/login"));
