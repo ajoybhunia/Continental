@@ -7,6 +7,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -14,6 +19,7 @@ public class Security {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
+    
     httpSecurity
         .cors(Customizer.withDefaults())
         .csrf(AbstractHttpConfigurer::disable)
@@ -21,8 +27,9 @@ public class Security {
             .requestMatchers("/api/users/register").permitAll()
             .requestMatchers("/api/search/hotels").permitAll()
             .requestMatchers("/login").permitAll()
+            .requestMatchers("/api/users/login").permitAll()
             .anyRequest().authenticated()
-        ).formLogin(fl -> fl.loginProcessingUrl("/login"));
+        ).formLogin(AbstractHttpConfigurer::disable);
 
     return httpSecurity.build();
   }
