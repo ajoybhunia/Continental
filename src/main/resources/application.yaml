@@ -2,4 +2,4 @@ spring:
   application:
     name: continental
   mongodb:
-    uri: mongodb://localhost:27017/continental
+    uri: ${TODO_MONGO_URI:mongodb://localhost:27017/continental}
