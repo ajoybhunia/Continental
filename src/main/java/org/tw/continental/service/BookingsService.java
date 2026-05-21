@@ -1,6 +1,7 @@
 package org.tw.continental.service;
 
 import org.springframework.stereotype.Service;
+import org.tw.continental.BookingIdProjection;
 import org.tw.continental.model.Booking;
 import org.tw.continental.repository.BookingsRepository;
 import org.tw.continental.repository.HotelRepository;
@@ -9,12 +10,10 @@ import org.tw.continental.repository.HotelRepository;
 public class BookingsService {
     private final BookingsRepository bookingsRepository;
     private final HotelRepository hotelRepository;
-    private final MyIdGenerator idGenerator;
 
-    public BookingsService(BookingsRepository bookingsRepository, HotelRepository hotelRepository, MyIdGenerator idGenerator) {
+    public BookingsService(BookingsRepository bookingsRepository, HotelRepository hotelRepository) {
         this.bookingsRepository = bookingsRepository;
         this.hotelRepository = hotelRepository;
-        this.idGenerator = idGenerator;
     }
 
     public int bookHotel(Integer userId, Integer hotelId, Integer rooms) {
@@ -22,8 +21,12 @@ public class BookingsService {
             throw new RuntimeException();
         }
 
-        int bookingId = idGenerator.next();
-        bookingsRepository.insert(new Booking(bookingId, hotelId, rooms, userId));
+        int bookingId = bookingsRepository
+                .findFirstByOrderByBookingIdDesc()
+                .map(BookingIdProjection::getBookingId)
+                .orElse(0);
+
+        bookingsRepository.insert(new Booking(bookingId + 1, hotelId, rooms, userId));
 
         return bookingId;
     }

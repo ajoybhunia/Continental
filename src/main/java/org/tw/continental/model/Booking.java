@@ -6,12 +6,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "bookings")
 public class Booking {
     @Id
-    private final Integer bookingId;
+    private final int bookingId;
     private final Integer hotelId;
     private final Integer rooms;
     private final Integer userId;
 
-    public Booking(Integer bookingId, Integer hotelId, Integer rooms, Integer userId) {
+    public Booking(int bookingId, Integer hotelId, Integer rooms, Integer userId) {
         this.bookingId = bookingId;
         this.hotelId = hotelId;
         this.rooms = rooms;
