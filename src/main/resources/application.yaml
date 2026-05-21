@@ -1,3 +1,5 @@
 spring:
   application:
     name: continental
+  mongodb:
+    uri: mongodb://localhost:27017/continental
