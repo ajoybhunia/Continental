@@ -1,0 +1,22 @@
+package org.tw.continental.controller;
+
+import org.springframework.web.bind.annotation.*;
+import org.tw.continental.dto.BookingRequest;
+import org.tw.continental.dto.BookingResponse;
+import org.tw.continental.service.BookingsService;
+
+@RestController
+@RequestMapping("/api")
+public class BookingsController {
+    private final BookingsService bookingsService;
+
+    public BookingsController(BookingsService bookingsService) {
+        this.bookingsService = bookingsService;
+    }
+
+    @PostMapping("/bookings")
+    public BookingResponse bookHotel(@RequestAttribute Integer userId, @RequestBody BookingRequest bookingRequest) {
+        int bookingId = bookingsService.bookHotel(userId, bookingRequest.hotel_id(), bookingRequest.rooms());
+        return new BookingResponse(bookingId, true);
+    }
+}
