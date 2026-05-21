@@ -19,9 +19,9 @@ public class Security {
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/users/register").permitAll()
-            .requestMatchers("/api/**").permitAll()
+            .requestMatchers("/login").permitAll()
             .anyRequest().authenticated()
-        );
+        ).formLogin(fl -> fl.loginProcessingUrl("/login"));
 
     return httpSecurity.build();
   }
