@@ -1,4 +1,4 @@
-package org.tw.continental;
+package org.tw.continental.projection;
 
 public interface BookingIdProjection {
     Integer getBookingId();

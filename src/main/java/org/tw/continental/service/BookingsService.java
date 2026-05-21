@@ -1,10 +1,13 @@
 package org.tw.continental.service;
 
 import org.springframework.stereotype.Service;
-import org.tw.continental.BookingIdProjection;
+import org.tw.continental.dto.BookingDetailsDto;
 import org.tw.continental.model.Booking;
+import org.tw.continental.projection.BookingIdProjection;
 import org.tw.continental.repository.BookingsRepository;
 import org.tw.continental.repository.HotelRepository;
+
+import java.util.List;
 
 @Service
 public class BookingsService {
@@ -29,5 +32,9 @@ public class BookingsService {
         bookingsRepository.insert(new Booking(bookingId + 1, hotelId, rooms, userId));
 
         return bookingId;
+    }
+
+    public List<BookingDetailsDto> getBookings(Integer userId) {
+        return bookingsRepository.findBookingsByUserId(userId);
     }
 }

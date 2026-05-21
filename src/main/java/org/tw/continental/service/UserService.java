@@ -1,7 +1,7 @@
 package org.tw.continental.service;
 
 import org.springframework.stereotype.Service;
-import org.tw.continental.models.User;
+import org.tw.continental.model.User;
 import org.tw.continental.repository.UserRepository;
 
 @Service

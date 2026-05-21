@@ -3,7 +3,7 @@ package org.tw.continental.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.tw.continental.controller.request.UserRegistrationRequest;
-import org.tw.continental.models.User;
+import org.tw.continental.model.User;
 import org.tw.continental.service.UserService;
 
 @RestController

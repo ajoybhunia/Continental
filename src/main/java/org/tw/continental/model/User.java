@@ -1,4 +1,4 @@
-package org.tw.continental.models;
+package org.tw.continental.model;
 
 public class User {
   private final int id;

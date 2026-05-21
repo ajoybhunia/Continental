@@ -20,6 +20,7 @@ public class Security {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/users/register").permitAll()
             .requestMatchers("/api/search/hotels").permitAll()
+            .requestMatchers("/api/bookings").permitAll()
             .requestMatchers("/login").permitAll()
             .anyRequest().authenticated()
         ).formLogin(fl -> fl.loginProcessingUrl("/login"));
