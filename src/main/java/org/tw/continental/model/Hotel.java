@@ -7,12 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "hotels")
 public class Hotel {
     @Id
-    private int id;
+    private Integer id;
     @NonNull
     private final String name;
     private final String city;
 
-    public Hotel(int id, String city, @NonNull String name) {
+    public Hotel(int id, @NonNull String name, String city) {
         this.id = id;
         this.city = city;
         this.name = name;

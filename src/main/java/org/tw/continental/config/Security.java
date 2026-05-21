@@ -19,6 +19,7 @@ public class Security {
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/users/register").permitAll()
+            .requestMatchers("/api/search/*").permitAll()
             .anyRequest().authenticated()
         );
 

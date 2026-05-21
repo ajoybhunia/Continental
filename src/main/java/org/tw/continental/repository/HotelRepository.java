@@ -8,6 +8,6 @@ import org.tw.continental.model.Hotel;
 import java.util.List;
 
 @Repository
-public interface HotelRepository extends MongoRepository<Hotel, String> {
+public interface HotelRepository extends MongoRepository<Hotel, Integer> {
     List<HotelDto> findHotelsByCity(String city);
 }
