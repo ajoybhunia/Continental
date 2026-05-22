@@ -1,17 +1,20 @@
 package org.tw.continental.model;
 
-public class User {
-  private final int id;
+import org.springframework.stereotype.Component;
+
+
+public class User{
+  private final Integer id;
   private final String username;
   private final String password;
 
-  public User(int id, String username, String password) {
+  public User(Integer id, String username, String password) {
     this.id = id;
     this.username = username;
     this.password = password;
   }
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 

@@ -1,5 +1,9 @@
 package org.tw.continental.service;
 
+import org.jspecify.annotations.Nullable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.tw.continental.exception.InvalidCredentialsException;
 import org.tw.continental.exception.UserAlreadyExistsException;
@@ -10,7 +14,7 @@ import org.tw.continental.repository.UserRepository;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
   private final UserRepository userRepository;
   private Integer currentID;
@@ -34,5 +38,16 @@ public class UserService {
     if (user.isEmpty()) {
       throw new InvalidCredentialsException();
     }
+  }
+
+  public User getUserByName(String username) {
+    return userRepository.findUserByUsername(username).orElse(null);
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    User user = userRepository.findUserByUsername(username).orElse(null);
+    if(user == null) throw new UsernameNotFoundException("Username %s not found".formatted(username));
+    return (UserDetails) user;
   }
 }
