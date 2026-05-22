@@ -13,7 +13,6 @@ import java.io.IOException;
 public class LoggingFilter implements Filter {
     private final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
 
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
