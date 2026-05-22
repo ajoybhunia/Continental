@@ -19,10 +19,6 @@ public class LoggingFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         logger.info("<- {}: {}", httpRequest.getMethod(), httpRequest.getRequestURI());
         try {
-
-            // Needs to be removed
-            request.setAttribute("userId", 1);
-
             chain.doFilter(request, response);
         } finally {
             HttpServletResponse httpResponse = (HttpServletResponse) response;

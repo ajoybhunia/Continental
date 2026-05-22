@@ -14,6 +14,8 @@ import org.tw.continental.service.JWTService;
 import org.tw.continental.service.UserService;
 
 import java.io.IOException;
+import java.util.List;
+
 @Component
 public class JWTFilter extends OncePerRequestFilter {
 
@@ -29,23 +31,23 @@ public class JWTFilter extends OncePerRequestFilter {
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
     String authHeader = request.getHeader("Authorization");
 
+
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
       filterChain.doFilter(request, response);
       return;
     }
-
     String jwt = authHeader.substring(7);
     String username = jwtService.extractUsername(jwt);
-
-    if (username != null && SecurityContextHolder.getContext().getAuthentication() != null) {
+    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       User user = userService.getUserByName(username);
 
       if (jwtService.isValidToken(jwt, username)) {
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null);
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null, List.of());
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authToken);
       }
     }
+    request.setAttribute("userId", (Integer) userService.getUserByName(username).getId());
     filterChain.doFilter(request, response);
   }
 }

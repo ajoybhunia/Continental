@@ -35,7 +35,7 @@ public class Security {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/api/users/*").permitAll()
             .requestMatchers("/api/search/hotels").permitAll()
-            .requestMatchers("/api/bookings").permitAll()
+//            .requestMatchers("/api/bookings").permitAll()
             .anyRequest().authenticated()
         )
         .sessionManagement(session -> session

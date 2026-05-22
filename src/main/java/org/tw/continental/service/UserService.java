@@ -48,6 +48,6 @@ public class UserService implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userRepository.findUserByUsername(username).orElse(null);
     if(user == null) throw new UsernameNotFoundException("Username %s not found".formatted(username));
-    return (UserDetails) user;
+    return org.springframework.security.core.userdetails.User.builder().username(username).roles("USER").build();
   }
 }
