@@ -21,11 +21,11 @@ public class BookingsService {
 	}
 
 	public BookingResponse bookHotel(Integer userId, Integer hotelId, Integer rooms) {
-		int bookingId = bookingsRepository
+		int lastBookingId = bookingsRepository
 						.findFirstByOrderByBookingIdDesc()
 						.map(BookingIdProjection::getBookingId)
 						.orElse(0);
-		bookingsRepository.save(new Booking(bookingId, hotelId, rooms, userId));
-		return new BookingResponse(bookingId, true);
+		bookingsRepository.save(new Booking(lastBookingId + 1, hotelId, rooms, userId));
+		return new BookingResponse(lastBookingId, true);
 	}
 }
