@@ -1,7 +1,7 @@
-package org.tw.continental.model;
+package com.continental.booking.modles;
 
 
-public class User{
+public class User {
   private final Integer id;
   private final String username;
   private final String password;
