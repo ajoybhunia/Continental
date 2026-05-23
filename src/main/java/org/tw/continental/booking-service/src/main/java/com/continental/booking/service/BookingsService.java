@@ -11,9 +11,11 @@ import java.util.List;
 @Service
 public class BookingsService {
 	private final BookingsRepository bookingsRepository;
+	private final QueueService queueService;
 
-	public BookingsService(BookingsRepository bookingsRepository) {
+	public BookingsService(BookingsRepository bookingsRepository, QueueService queueService) {
 		this.bookingsRepository = bookingsRepository;
+		this.queueService = queueService;
 	}
 
 	public List<BookingView> getBookings(Integer userId) {
@@ -25,7 +27,9 @@ public class BookingsService {
 						.findFirstByOrderByBookingIdDesc()
 						.map(BookingIdProjection::getBookingId)
 						.orElse(0);
-		bookingsRepository.save(new Booking(lastBookingId + 1, hotelId, rooms, userId));
+		Booking booking = new Booking(lastBookingId + 1, hotelId, rooms, userId);
+		bookingsRepository.save(booking);
+		queueService.addJob(booking);
 		return new BookingResponse(lastBookingId, true);
 	}
 }

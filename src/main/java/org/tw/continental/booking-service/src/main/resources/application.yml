@@ -3,3 +3,7 @@ spring:
     name: Continental-Booking-Service
   mongodb:
     uri: ${HOTEL_MONGO_URI:mongodb://localhost:27017/continental}
+  redis:
+    host: localhost
+    port: 6379
+    password:
