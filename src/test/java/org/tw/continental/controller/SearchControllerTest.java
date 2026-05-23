@@ -8,7 +8,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.client.RestTestClient;
 import org.tw.continental.dto.HotelDto;
-import org.tw.continental.model.Hotel;
 import org.tw.continental.service.SearchService;
 
 import java.util.ArrayList;
