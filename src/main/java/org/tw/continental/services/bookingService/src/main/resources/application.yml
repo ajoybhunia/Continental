@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: Continental-Booking-Service
-  mongodb:
-    uri: mongodb://localhost:27017/continental
-server:
-  port: 3000

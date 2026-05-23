@@ -1,4 +1,43 @@
 services:
+  user-service:
+    build:
+      context: ./src/main/java/org/tw/continental/user-service
+    image: user-service
+    depends_on:
+      - mongo
+    environment:
+      HOTEL_MONGO_URI: mongodb://mongo:27017/continental
+    deploy:
+      replicas: 2
+    networks:
+      - backend
+
+  booking-service:
+    build:
+      context: ./src/main/java/org/tw/continental/booking-service
+    image: booking-service
+    depends_on:
+      - mongo
+    environment:
+      HOTEL_MONGO_URI: mongodb://mongo:27017/continental
+    deploy:
+      replicas: 2
+    networks:
+      - backend
+
+  search-service:
+    build:
+      context: ./src/main/java/org/tw/continental/search-service
+    image: search-service
+    depends_on:
+      - mongo
+    environment:
+      HOTEL_MONGO_URI: mongodb://mongo:27017/continental
+    deploy:
+      replicas: 2
+    networks:
+      - backend
+
   nginx_proxy:
     ports:
       - "3000:80"
@@ -6,24 +45,15 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - server
-    networks:
-      - backend
-
-  server:
-    build: .
-    deploy:
-      replicas: 5
-    environment:
-      TODO_MONGO_URI: mongodb://mongo:27017/continental
-    depends_on:
-      - mongo
+      - user-service
+      - booking-service
+      - search-service
     networks:
       - backend
 
   mongo:
     image: mongo:7
-    container_name: mongodb
+#    container_name: mongodb
     restart: unless-stopped
     volumes:
       - mongo_data:/data/db
