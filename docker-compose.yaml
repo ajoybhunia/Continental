@@ -1,7 +1,7 @@
 services:
   user-service:
     build:
-      context: ./src/main/java/org/tw/continental/user-service
+      context: ./user-service
     image: user-service
     depends_on:
       - mongo
@@ -14,7 +14,7 @@ services:
 
   booking-service:
     build:
-      context: ./src/main/java/org/tw/continental/booking-service
+      context: ./booking-service
     image: booking-service
     depends_on:
       - mongo
@@ -27,7 +27,7 @@ services:
 
   search-service:
     build:
-      context: ./src/main/java/org/tw/continental/search-service
+      context: ./search-service
     image: search-service
     depends_on:
       - mongo
@@ -60,18 +60,17 @@ services:
     networks:
       - backend
 
-  job-queue:
-    build: .
-
   redis:
     image: redis:alpine
     volumes:
       - redis_data:/data
+    networks:
+      - backend
 
 
 volumes:
-  - mongo_data:
-  - redis_data:
+  mongo_data:
+  redis_data:
 
 networks:
   backend:
